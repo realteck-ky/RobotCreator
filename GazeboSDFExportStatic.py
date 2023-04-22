@@ -21,16 +21,15 @@ def bodyFromPad(a):
 				return obj
 
 def bodyLabelFromObjStr(a):
-  b = str2obj(a)
-  c = bodyFromPad(b)
-  return c.Label
-
+	b = str2obj(a)
+	c = bodyFromPad(b)
+	return c.Label
 
 class GazeboSDFExportStatic:
 	"""GazeboSDFExport"""
 
 	def GetResources(self):
-		__dirname__ = os.path.join(FreeCAD.getResourceDir(), "Mod", "RobotCreator")
+		__dirname__ = os.path.dirname(os.path.abspath(__file__))
 		return {'Pixmap' : str(__dirname__ + "/Resources/icons/SDFexportStatic.png"), # the name of a svg file available in the resources
 				'Accel' : "Shift+a", # a default shortcut (optional)
 				'MenuText': "Gazebo static SDF export",
@@ -63,7 +62,7 @@ class GazeboSDFExportStatic:
 		for obj in objs:
 			print(obj.Name)
 			if "Joint" in obj.Name:
-				print("Joint: " + obj.Name + " with label " + obj.Label+ " detected!")
+				# print("Joint: " + obj.Name + " with label " + obj.Label+ " detected!")
 				pos = obj.Shape.Placement
 				pos.Base *= 0.001
 				sdfFile.write(' <joint name="'+bodyLabelFromObjStr(obj.Parent)+bodyLabelFromObjStr(obj.Child)+'" type="revolute">\n')

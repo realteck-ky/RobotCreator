@@ -12,6 +12,8 @@ class RobotCreator (Workbench):
 		def QT_TRANSLATE_NOOP(context, text):
 			return text
 		__dirname__ = os.path.join(FreeCAD.getResourceDir(), "Mod", "RobotCreator")
+		if not os.path.isdir(__dirname__):
+			__dirname__ = os.path.join(FreeCAD.getUserAppDataDir(), "Mod", "RobotCreator")
 		_tooltip = "The RobotCreator workbench is used to create URDF or SDF files"
 		self.__class__.Icon = os.path.join(__dirname__, "Resources", "icons", "SDFexportStatic.png")
 		self.__class__.MenuText = QT_TRANSLATE_NOOP("RobotCreator", "RobotCreator")
@@ -20,7 +22,7 @@ class RobotCreator (Workbench):
 	def Initialize(self):
 		"This function is executed when FreeCAD starts"
 		__dirname__ = os.path.join(FreeCAD.getResourceDir(), "Mod", "RobotCreator")
-		print("got dir:" + __dirname__);
+		print("got dir:" + __dirname__)
 		import GazeboSDFExportStatic, GazeboSDFExport, CreateJoint # import here all the needed files that create your FreeCAD commands
 		self.list = ['RC_GazeboSDFExportStatic','RC_GazeboSDFExport', 'RC_CreateJoint'] # A list of command names created in the line above
 		self.appendToolbar("RobotCreator",self.list) # creates a new toolbar with your commands
